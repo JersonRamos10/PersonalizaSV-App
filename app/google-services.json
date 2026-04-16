@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1030716775286",
+    "project_id": "personalizasv-94505",
+    "storage_bucket": "personalizasv-94505.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1030716775286:android:1ad4894619514acd677857",
+        "android_client_info": {
+          "package_name": "com.personalizasv.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1_XocSCWHJNyK2yDRLrUeat3bapFuU7s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
