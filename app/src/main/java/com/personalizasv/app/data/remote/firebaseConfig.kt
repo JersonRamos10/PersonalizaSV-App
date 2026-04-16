@@ -3,11 +3,9 @@ package com.personalizasv.app.data.remote
 import com.google.firebase.firestore.FirebaseFirestore
 
 object FirebaseConfig {
-    val db: FirebaseFirestore by lazy {
-        FirebaseFirestore.getInstance()
-    }
+    val db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
-    // Colecciones (constantes para evitar errores de escritura)
+    //Colecciones en Firebase Console
     const val COL_USUARIOS = "usuarios"
     const val COL_CLIENTES = "clientes"
     const val COL_PRODUCTOS = "productos"
