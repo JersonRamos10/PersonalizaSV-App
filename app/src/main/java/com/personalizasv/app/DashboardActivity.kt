@@ -2,6 +2,7 @@ package com.personalizasv.app
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.card.MaterialCardView
@@ -48,7 +49,7 @@ class DashboardActivity : AppCompatActivity() {
             Toast.makeText(this, "Próximamente: Configuración", Toast.LENGTH_SHORT).show()
         }
 
-        findViewById<MaterialCardView>(R.id.btnLogout).setOnClickListener {
+        findViewById<Button>(R.id.btnLogout).setOnClickListener {
             FirebaseConfig.auth.signOut()
             Toast.makeText(this, "Sesión cerrada", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, MainActivity::class.java))
