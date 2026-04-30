@@ -17,7 +17,7 @@ class DashboardActivity : AppCompatActivity() {
         }
 
         findViewById<MaterialCardView>(R.id.editPedido).setOnClickListener {
-            Toast.makeText(this, "Próximamente: Registrar Pedido", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, RegistrarPedidoActivity::class.java))
         }
 
         findViewById<MaterialCardView>(R.id.editGestion).setOnClickListener {
