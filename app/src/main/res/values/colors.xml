@@ -2,4 +2,37 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Primary -->
+    <color name="primary">#FF6D28D9</color>
+    <color name="primary_dark">#FF5B21B6</color>
+    <color name="primary_light">#FF8B5CF6</color>
+    <color name="primary_surface">#FFF5F3FF</color>
+
+    <!-- Accent -->
+    <color name="accent">#FFF59E0B</color>
+    <color name="accent_dark">#FFD97706</color>
+
+    <!-- Surface -->
+    <color name="surface">#FFFFFFFF</color>
+    <color name="surface_variant">#FFF9FAFB</color>
+    <color name="background">#FFF3F4F6</color>
+
+    <!-- Text -->
+    <color name="text_primary">#FF111827</color>
+    <color name="text_secondary">#FF6B7280</color>
+    <color name="text_hint">#FF9CA3AF</color>
+    <color name="text_on_primary">#FFFFFFFF</color>
+
+    <!-- Status -->
+    <color name="success">#FF10B981</color>
+    <color name="error">#FFEF4444</color>
+    <color name="warning">#FFF59E0B</color>
+
+    <!-- Card -->
+    <color name="card_background">#FFFFFFFF</color>
+    <color name="card_stroke">#FFE5E7EB</color>
+
+    <!-- Divider -->
+    <color name="divider">#FFE5E7EB</color>
 </resources>
