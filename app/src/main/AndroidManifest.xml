@@ -13,6 +13,7 @@
         android:theme="@style/Theme.PersonalizaSV">
         <activity android:name=".DashboardActivity" />
         <activity android:name=".RegistrarClienteActivity" />
+        <activity android:name=".RegistrarPedidoActivity" />
 
             <activity
             android:name=".MainActivity"
