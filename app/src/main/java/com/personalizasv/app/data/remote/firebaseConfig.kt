@@ -1,9 +1,11 @@
 package com.personalizasv.app.data.remote
 
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 object FirebaseConfig {
     val db: FirebaseFirestore = FirebaseFirestore.getInstance()
+    val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     //Colecciones en Firebase Console
     const val COL_USUARIOS = "usuarios"
