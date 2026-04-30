@@ -12,7 +12,12 @@ class DashboardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
 
+        val btnRegistrarCliente = findViewById<Button>(R.id.editRegistrar)
         val btnLogout = findViewById<Button>(R.id.btnLogout)
+
+        btnRegistrarCliente.setOnClickListener {
+            startActivity(Intent(this, RegistrarClienteActivity::class.java))
+        }
 
         btnLogout.setOnClickListener {
             FirebaseConfig.auth.signOut()
