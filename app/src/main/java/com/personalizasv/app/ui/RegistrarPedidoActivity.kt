@@ -1,4 +1,4 @@
-package com.personalizasv.app
+package com.personalizasv.app.ui
 
 import android.app.DatePickerDialog
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.ImageButton
+import com.personalizasv.app.R
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView

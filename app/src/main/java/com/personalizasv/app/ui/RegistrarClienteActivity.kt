@@ -1,4 +1,4 @@
-package com.personalizasv.app
+package com.personalizasv.app.ui
 
 import android.os.Bundle
 import android.view.View
@@ -6,6 +6,7 @@ import android.widget.ImageButton
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.viewModels
+import com.personalizasv.app.R
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat

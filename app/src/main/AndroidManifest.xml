@@ -11,12 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PersonalizaSV">
-        <activity android:name=".DashboardActivity" />
-        <activity android:name=".RegistrarClienteActivity" />
-        <activity android:name=".RegistrarPedidoActivity" />
+        <activity android:name=".ui.DashboardActivity" />
+        <activity android:name=".ui.RegistrarClienteActivity" />
+        <activity android:name=".ui.RegistrarPedidoActivity" />
 
-            <activity
-            android:name=".MainActivity"
+        <activity
+            android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

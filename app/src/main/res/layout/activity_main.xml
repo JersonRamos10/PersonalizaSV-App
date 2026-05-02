@@ -13,9 +13,9 @@
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:src="@drawable/_2a39f17634734f02adeef94d3b6af1e9"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/descarga" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView"
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="19dp"
         android:layout_marginBottom="56dp"
-        android:text="PersonalizSV"
+        android:text="PersonalizaSV"
         android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -63,7 +63,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
-        android:backgroundTint="#FB8C00"
+        android:backgroundTint="@color/background"
         android:text="Ingresar"
         android:textColor="@color/black"
         android:textColorHighlight="@color/white"

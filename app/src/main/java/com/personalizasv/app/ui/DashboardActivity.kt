@@ -1,9 +1,10 @@
-package com.personalizasv.app
+package com.personalizasv.app.ui
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
+import com.personalizasv.app.R
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.card.MaterialCardView
 import com.personalizasv.app.data.remote.FirebaseConfig

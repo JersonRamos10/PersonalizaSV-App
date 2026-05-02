@@ -7,14 +7,14 @@
     android:background="@color/background">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         app:elevation="0dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@drawable/bg_header_gradient"
             android:paddingStart="24dp"
             android:paddingTop="48dp"
@@ -34,13 +34,15 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
+                android:layout_alignParentBottom="true"
                 android:layout_marginStart="16dp"
+                android:layout_marginBottom="36dp"
                 android:layout_toEndOf="@id/btnBack"
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/textView5"
+                    android:layout_width="156dp"
                     android:layout_height="wrap_content"
                     android:text="Nuevo Pedido"
                     android:textColor="@color/white"
@@ -68,6 +70,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <FrameLayout
+        android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">

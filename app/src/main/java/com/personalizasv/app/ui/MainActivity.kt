@@ -1,9 +1,10 @@
-package com.personalizasv.app
+package com.personalizasv.app.ui
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import com.personalizasv.app.R
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -24,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         auth = FirebaseConfig.auth
 
         if (auth.currentUser != null) {
-            navigateToDashboard()
+           navigateToDashboard()
             return
         }
 
