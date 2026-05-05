@@ -34,7 +34,7 @@ class RegistrarClienteActivity : AppCompatActivity() {
         val editNotas = findViewById<TextInputEditText>(R.id.editNotas)
         val btnRegistrar = findViewById<MaterialButton>(R.id.btnRegistrarCliente)
         val progressBar = findViewById<ProgressBar>(R.id.progressBar)
-        val btnBack = findViewById<ImageButton>(R.id.btnBack)
+        val btnBack = findViewById<ImageButton>(R.id.btnBack4)
 
         btnBack.setOnClickListener { finish() }
 

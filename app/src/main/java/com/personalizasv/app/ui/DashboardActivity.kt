@@ -27,7 +27,7 @@ class DashboardActivity : AppCompatActivity() {
         }
 
         findViewById<MaterialCardView>(R.id.editSeguimiento).setOnClickListener {
-            Toast.makeText(this, "Próximamente: Seguimiento", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, SeguimientoPedidoActivity::class.java))
         }
 
         findViewById<MaterialCardView>(R.id.editIngresos).setOnClickListener {

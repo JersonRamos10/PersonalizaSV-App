@@ -46,11 +46,11 @@ class RegistrarPedidoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registrar_pedido)
 
-        val btnBack = findViewById<ImageButton>(R.id.btnBack)
+        val btnBack = findViewById<ImageButton>(R.id.btnBack4)
         val txtStepIndicator = findViewById<TextView>(R.id.txtStepIndicator)
         val progressIndicator = findViewById<LinearProgressIndicator>(R.id.progressIndicator)
         val btnAnterior = findViewById<MaterialButton>(R.id.btnAnterior)
-        val btnSiguiente = findViewById<MaterialButton>(R.id.btnSiguiente)
+        val btnSiguiente = findViewById<MaterialButton>(R.id.btnBuscar3)
         val progressBar = findViewById<ProgressBar>(R.id.progressBar)
 
         val step1 = findViewById<NestedScrollView>(R.id.step1)
@@ -60,7 +60,7 @@ class RegistrarPedidoActivity : AppCompatActivity() {
 
         val steps = listOf(step1, step2, step3, step4)
 
-        val editBuscarTelefono = findViewById<TextInputEditText>(R.id.editBuscarTelefono)
+        val editBuscarTelefono = findViewById<TextInputEditText>(R.id.editBuscarPedido)
         val cardClienteEncontrado = findViewById<MaterialCardView>(R.id.cardClienteEncontrado)
         val txtNombreCliente = findViewById<TextView>(R.id.txtNombreCliente)
         val txtTelefonoCliente = findViewById<TextView>(R.id.txtTelefonoCliente)
