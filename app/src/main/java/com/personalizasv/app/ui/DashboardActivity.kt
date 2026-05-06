@@ -23,7 +23,7 @@ class DashboardActivity : AppCompatActivity() {
         }
 
         findViewById<MaterialCardView>(R.id.editGestion).setOnClickListener {
-            Toast.makeText(this, "Próximamente: Gestión de Productos", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, com.personalizasv.app.ui.producto.GestionProductosActivity::class.java))
         }
 
         findViewById<MaterialCardView>(R.id.editSeguimiento).setOnClickListener {
