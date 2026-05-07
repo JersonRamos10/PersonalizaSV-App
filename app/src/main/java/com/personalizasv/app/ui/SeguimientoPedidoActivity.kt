@@ -62,10 +62,15 @@ class SeguimientoPedidoActivity : AppCompatActivity() {
         recyclerPedidos.layoutManager = LinearLayoutManager(this)
         recyclerPedidos.adapter = adapter
 
-        btnBuscar.setOnClickListener {
-            val query = editBuscar.text.toString().trim()
-            viewModel.buscarPedidos(query)
-        }
+        editBuscar.addTextChangedListener(object : android.text.TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                viewModel.filtrarPedidos(s?.toString() ?: "")
+            }
+            override fun afterTextChanged(s: android.text.Editable?) {}
+        })
+
+        btnBuscar.visibility = View.GONE
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {

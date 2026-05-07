@@ -20,6 +20,7 @@ class SeguimientoViewModel : ViewModel() {
 
     private val repository = PedidoRepositoryImpl()
 
+    private val _todosPedidos = MutableStateFlow<List<Pedido>>(emptyList())
     private val _pedidos = MutableStateFlow<List<Pedido>>(emptyList())
     val pedidos: StateFlow<List<Pedido>> = _pedidos.asStateFlow()
 
@@ -37,20 +38,21 @@ class SeguimientoViewModel : ViewModel() {
         viewModelScope.launch {
             _uiState.value = SeguimientoUiState.Loading
             val lista = repository.obtenerTodosPedidos()
+            _todosPedidos.value = lista
             _pedidos.value = lista
             _uiState.value = SeguimientoUiState.Idle
         }
     }
 
-    fun buscarPedidos(query: String) {
-        viewModelScope.launch {
-            if (query.isBlank()) {
-                cargarPedidos()
-            } else {
-                _uiState.value = SeguimientoUiState.Loading
-                val lista = repository.buscarPedidos(query)
-                _pedidos.value = lista
-                _uiState.value = SeguimientoUiState.Idle
+    fun filtrarPedidos(query: String) {
+        val q = query.lowercase().trim()
+        _pedidos.value = if (q.isEmpty()) {
+            _todosPedidos.value
+        } else {
+            _todosPedidos.value.filter { p ->
+                p.nombreCliente.lowercase().contains(q) ||
+                p.id.lowercase().contains(q) ||
+                p.id.take(8).lowercase().contains(q)
             }
         }
     }
