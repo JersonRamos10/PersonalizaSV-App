@@ -57,6 +57,30 @@ class SeguimientoViewModel : ViewModel() {
         }
     }
 
+    fun cambiarEstado(idPedido: String, nuevoEstado: String) {
+        viewModelScope.launch {
+            _uiState.value = SeguimientoUiState.Loading
+            val result = repository.actualizarEstado(idPedido, nuevoEstado)
+            result.fold(
+                onSuccess = {
+                    val pedidoActualizado = repository.obtenerPedidoPorId(idPedido)
+                    if (pedidoActualizado != null) {
+                        val lista = _todosPedidos.value.toMutableList()
+                        val index = lista.indexOfFirst { it.id == idPedido }
+                        if (index >= 0) lista[index] = pedidoActualizado
+                        _todosPedidos.value = lista
+                        filtrarPedidos("")
+                        _pedidoSeleccionado.value = pedidoActualizado
+                    }
+                    _uiState.value = SeguimientoUiState.Success("Estado actualizado correctamente")
+                },
+                onFailure = { e ->
+                    _uiState.value = SeguimientoUiState.Error("Error al actualizar: ${e.message}")
+                }
+            )
+        }
+    }
+
     fun seleccionarPedido(pedido: Pedido) {
         _pedidoSeleccionado.value = pedido
     }

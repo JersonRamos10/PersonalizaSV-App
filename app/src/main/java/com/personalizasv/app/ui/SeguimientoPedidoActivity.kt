@@ -53,6 +53,9 @@ class SeguimientoPedidoActivity : AppCompatActivity() {
         val layoutDetalleProductos = findViewById<LinearLayout>(R.id.layoutDetalleProductos)
         val layoutNotas = findViewById<TextInputLayout>(R.id.layoutNotas)
         val txtDetalleNotas = findViewById<TextInputEditText>(R.id.txtDetalleNotas)
+        val btnSiguienteEstado = findViewById<com.google.android.material.button.MaterialButton>(R.id.btnSiguienteEstado)
+        val btnCancelarPedido = findViewById<com.google.android.material.button.MaterialButton>(R.id.btnCancelarPedido)
+        val layoutEstados = findViewById<android.widget.LinearLayout>(R.id.layoutEstados)
 
         btnBack.setOnClickListener { finish() }
 
@@ -128,6 +131,19 @@ class SeguimientoPedidoActivity : AppCompatActivity() {
                             } else {
                                 layoutNotas.visibility = View.GONE
                             }
+
+                            if (pedido.estado == "cancelado" || pedido.estado == "entregado") {
+                                layoutEstados.visibility = View.GONE
+                            } else {
+                                layoutEstados.visibility = View.VISIBLE
+                                btnSiguienteEstado.text = "Avanzar a: ${siguienteEstadoLabel(pedido.estado)}"
+                                btnSiguienteEstado.setOnClickListener {
+                                    viewModel.cambiarEstado(pedido.id, siguienteEstado(pedido.estado))
+                                }
+                                btnCancelarPedido.setOnClickListener {
+                                    viewModel.cambiarEstado(pedido.id, "cancelado")
+                                }
+                            }
                         } else {
                             cardDetalle.visibility = View.GONE
                         }
@@ -182,5 +198,21 @@ class SeguimientoPedidoActivity : AppCompatActivity() {
         return if (timestamp > 0) {
             SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(timestamp)
         } else "N/A"
+    }
+
+    private fun siguienteEstado(estado: String): String = when (estado) {
+        "pendiente" -> "diseno_aprobado"
+        "diseno_aprobado" -> "en_produccion"
+        "en_produccion" -> "listo_entrega"
+        "listo_entrega" -> "entregado"
+        else -> estado
+    }
+
+    private fun siguienteEstadoLabel(estado: String): String = when (estado) {
+        "pendiente" -> "Diseño Aprobado"
+        "diseno_aprobado" -> "En Producción"
+        "en_produccion" -> "Listo para Entrega"
+        "listo_entrega" -> "Entregado"
+        else -> ""
     }
 }
