@@ -5,13 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageButton
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
-import com.google.android.material.textfield.TextInputLayout
 import com.personalizasv.app.R
 import com.personalizasv.app.data.models.Personalizacion
 
@@ -40,26 +38,31 @@ class PedidoCartAdapter(
         private val editTalla: EditText = itemView.findViewById(R.id.editTalla)
         private val editColor: EditText = itemView.findViewById(R.id.editColor)
         private val editTextoPersonalizado: EditText = itemView.findViewById(R.id.editTextoPersonalizado)
-        private val layoutTallaColor: LinearLayout = itemView.findViewById(R.id.layoutTallaColor)
-        private val inputTalla: TextInputLayout = itemView.findViewById(R.id.inputTalla)
-        private val inputColor: TextInputLayout = itemView.findViewById(R.id.inputColor)
-        private val layoutTextoPersonalizado: TextInputLayout = itemView.findViewById(R.id.layoutTextoPersonalizado)
 
         private var currentPosition: Int = 0
-        private var isBinding = false
 
-        private val tallaWatcher = createWatcher { savePersonalizacion() }
-        private val colorWatcher = createWatcher { savePersonalizacion() }
-        private val textoWatcher = createWatcher { savePersonalizacion() }
-
-        private fun createWatcher(onChange: () -> Unit): android.text.TextWatcher {
-            return object : android.text.TextWatcher {
+        init {
+            editTalla.addTextChangedListener(object : android.text.TextWatcher {
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
                 override fun afterTextChanged(s: android.text.Editable?) {
-                    if (!isBinding) onChange()
+                    savePersonalizacion()
                 }
-            }
+            })
+            editColor.addTextChangedListener(object : android.text.TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+                override fun afterTextChanged(s: android.text.Editable?) {
+                    savePersonalizacion()
+                }
+            })
+            editTextoPersonalizado.addTextChangedListener(object : android.text.TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+                override fun afterTextChanged(s: android.text.Editable?) {
+                    savePersonalizacion()
+                }
+            })
         }
 
         private fun savePersonalizacion() {
@@ -73,41 +76,29 @@ class PedidoCartAdapter(
 
         fun bind(item: CartItemPedido, position: Int) {
             currentPosition = position
-            isBinding = true
 
             txtNombre.text = item.producto.nombre
             txtCantidad.text = item.cantidad.toString()
             txtSubtotal.text = "$${"%.2f".format(item.subtotal)}"
 
-            val opciones = item.producto.opcionesPersonalizacion.map { it.lowercase().trim() }
-            val muestraTalla = opciones.contains("talla")
-            val muestraColor = opciones.contains("color")
-            val muestraTexto = opciones.contains("texto") || opciones.contains("texto personalizado")
-
-            layoutTallaColor.visibility = if (muestraTalla || muestraColor) View.VISIBLE else View.GONE
-            inputTalla.visibility = if (muestraTalla) View.VISIBLE else View.GONE
-            inputColor.visibility = if (muestraColor) View.VISIBLE else View.GONE
-            layoutTextoPersonalizado.visibility = if (muestraTexto) View.VISIBLE else View.GONE
-
-            editTalla.removeTextChangedListener(tallaWatcher)
-            editColor.removeTextChangedListener(colorWatcher)
-            editTextoPersonalizado.removeTextChangedListener(textoWatcher)
-
-            if (!editTalla.hasFocus() && editTalla.text.toString() != item.personalizacion.talla) {
-                editTalla.setText(item.personalizacion.talla)
+            if (editTalla.hasFocus().not()) {
+                val currentText = editTalla.text.toString()
+                if (currentText != item.personalizacion.talla) {
+                    editTalla.setText(item.personalizacion.talla)
+                }
             }
-            if (!editColor.hasFocus() && editColor.text.toString() != item.personalizacion.color) {
-                editColor.setText(item.personalizacion.color)
+            if (editColor.hasFocus().not()) {
+                val currentText = editColor.text.toString()
+                if (currentText != item.personalizacion.color) {
+                    editColor.setText(item.personalizacion.color)
+                }
             }
-            if (!editTextoPersonalizado.hasFocus() && editTextoPersonalizado.text.toString() != item.personalizacion.textoPersonalizado) {
-                editTextoPersonalizado.setText(item.personalizacion.textoPersonalizado)
+            if (editTextoPersonalizado.hasFocus().not()) {
+                val currentText = editTextoPersonalizado.text.toString()
+                if (currentText != item.personalizacion.textoPersonalizado) {
+                    editTextoPersonalizado.setText(item.personalizacion.textoPersonalizado)
+                }
             }
-
-            editTalla.addTextChangedListener(tallaWatcher)
-            editColor.addTextChangedListener(colorWatcher)
-            editTextoPersonalizado.addTextChangedListener(textoWatcher)
-
-            isBinding = false
 
             btnMenos.setOnClickListener {
                 onCantidadChange(currentPosition, item.cantidad - 1)
@@ -129,7 +120,8 @@ class PedidoCartAdapter(
         }
 
         override fun areContentsTheSame(oldItem: CartItemPedido, newItem: CartItemPedido): Boolean {
-            return oldItem == newItem
+            return oldItem.producto.id == newItem.producto.id &&
+                   oldItem.cantidad == newItem.cantidad
         }
     }
 }
