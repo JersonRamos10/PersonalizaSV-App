@@ -13,7 +13,9 @@ class ProductoRepositoryImpl {
                 .whereEqualTo("activo", true)
                 .get()
                 .await()
-            snapshot.toObjects(Producto::class.java)
+            snapshot.documents.mapNotNull { doc ->
+                doc.toObject(Producto::class.java)?.copy(id = doc.id)
+            }
         } catch (e: Exception) {
             emptyList()
         }
@@ -22,7 +24,9 @@ class ProductoRepositoryImpl {
     suspend fun obtenerTodosProductos(): List<Producto> {
         return try {
             val snapshot = collection.get().await()
-            snapshot.toObjects(Producto::class.java)
+            snapshot.documents.mapNotNull { doc ->
+                doc.toObject(Producto::class.java)?.copy(id = doc.id)
+            }
         } catch (e: Exception) {
             emptyList()
         }
