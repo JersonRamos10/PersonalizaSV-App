@@ -3,6 +3,7 @@ package com.personalizasv.app.data.models
 data class Pedido(
 val id: String = "",
 val idCliente: String = "",
+val nombreCliente: String = "",
 val idRevendedor: String = "",
 val estado: String = "pendiente", // pendiente, diseno_aprobado, en_produccion, listo_entrega, entregado, cancelado
 val productos: List<ItemPedido> = emptyList(),

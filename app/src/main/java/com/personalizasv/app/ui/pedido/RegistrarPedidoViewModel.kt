@@ -171,6 +171,7 @@ class RegistrarPedidoViewModel : ViewModel() {
 
             val pedido = Pedido(
                 idCliente = form.cliente.id,
+                nombreCliente = form.cliente.nombreCompleto,
                 estado = "pendiente",
                 productos = items,
                 metodoPago = form.metodoPago,

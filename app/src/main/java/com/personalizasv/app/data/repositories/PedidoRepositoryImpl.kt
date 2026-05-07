@@ -43,4 +43,43 @@ class PedidoRepositoryImpl : PedidoRepository {
             Result.failure(e)
         }
     }
+
+    suspend fun obtenerTodosPedidos(): List<Pedido> {
+        return try {
+            val snapshot = FirebaseConfig.db.collection(FirebaseConfig.COL_PEDIDOS)
+                .orderBy("fechaPedido", com.google.firebase.firestore.Query.Direction.DESCENDING)
+                .get()
+                .await()
+            snapshot.documents.mapNotNull { doc ->
+                doc.toObject(Pedido::class.java)?.copy(id = doc.id)
+            }
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
+
+    suspend fun buscarPedidos(query: String): List<Pedido> {
+        return try {
+            val snapshot = FirebaseConfig.db.collection(FirebaseConfig.COL_PEDIDOS).get().await()
+            val pedidos = snapshot.documents.mapNotNull { doc ->
+                doc.toObject(Pedido::class.java)?.copy(id = doc.id)
+            }
+            val q = query.lowercase().trim()
+            pedidos.filter { p ->
+                p.id.lowercase().contains(q) ||
+                p.nombreCliente.lowercase().contains(q)
+            }
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
+
+    suspend fun obtenerPedidoPorId(id: String): Pedido? {
+        return try {
+            val doc = FirebaseConfig.db.collection(FirebaseConfig.COL_PEDIDOS).document(id).get().await()
+            doc.toObject(Pedido::class.java)?.copy(id = doc.id)
+        } catch (e: Exception) {
+            null
+        }
+    }
 }

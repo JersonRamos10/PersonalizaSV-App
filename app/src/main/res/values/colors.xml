@@ -28,6 +28,7 @@
     <color name="success">#FF10B981</color>
     <color name="error">#FFEF4444</color>
     <color name="warning">#FFF59E0B</color>
+    <color name="info">#FF3B82F6</color>
 
     <!-- Card -->
     <color name="card_background">#FFFFFFFF</color>
