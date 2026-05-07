@@ -92,6 +92,7 @@ class RegistrarPedidoActivity : AppCompatActivity() {
         )
         recyclerItems.layoutManager = LinearLayoutManager(this)
         recyclerItems.adapter = adapter
+        recyclerItems.itemAnimator = null
 
         val metodosPago = listOf("Efectivo", "Transferencia", "Tarjeta de credito", "Tarjeta de debito", "Otro")
         autoCompleteMetodoPago.setAdapter(ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, metodosPago))
