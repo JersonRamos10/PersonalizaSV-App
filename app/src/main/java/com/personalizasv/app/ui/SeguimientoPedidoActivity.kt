@@ -2,6 +2,8 @@ package com.personalizasv.app.ui
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.ProgressBar
@@ -53,9 +55,28 @@ class SeguimientoPedidoActivity : AppCompatActivity() {
         val layoutDetalleProductos = findViewById<LinearLayout>(R.id.layoutDetalleProductos)
         val layoutNotas = findViewById<TextInputLayout>(R.id.layoutNotas)
         val txtDetalleNotas = findViewById<TextInputEditText>(R.id.txtDetalleNotas)
-        val btnSiguienteEstado = findViewById<com.google.android.material.button.MaterialButton>(R.id.btnSiguienteEstado)
-        val btnCancelarPedido = findViewById<com.google.android.material.button.MaterialButton>(R.id.btnCancelarPedido)
-        val layoutEstados = findViewById<android.widget.LinearLayout>(R.id.layoutEstados)
+        val layoutEstadoSelect = findViewById<com.google.android.material.textfield.TextInputLayout>(R.id.layoutEstadoSelect)
+        val spinnerEstado = findViewById<AutoCompleteTextView>(R.id.spinnerEstado)
+        val btnActualizarEstado = findViewById<com.google.android.material.button.MaterialButton>(R.id.btnActualizarEstado)
+
+        val estados = listOf(
+            "Pendiente",
+            "Diseño Aprobado",
+            "En Producción",
+            "Listo para Entrega",
+            "Entregado",
+            "Cancelado"
+        )
+        val estadosKeys = listOf(
+            "pendiente",
+            "diseno_aprobado",
+            "en_produccion",
+            "listo_entrega",
+            "entregado",
+            "cancelado"
+        )
+        val adapterEstados = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, estados)
+        spinnerEstado.setAdapter(adapterEstados)
 
         btnBack.setOnClickListener { finish() }
 
@@ -132,16 +153,18 @@ class SeguimientoPedidoActivity : AppCompatActivity() {
                                 layoutNotas.visibility = View.GONE
                             }
 
-                            if (pedido.estado == "cancelado" || pedido.estado == "entregado") {
-                                layoutEstados.visibility = View.GONE
-                            } else {
-                                layoutEstados.visibility = View.VISIBLE
-                                btnSiguienteEstado.text = "Avanzar a: ${siguienteEstadoLabel(pedido.estado)}"
-                                btnSiguienteEstado.setOnClickListener {
-                                    viewModel.cambiarEstado(pedido.id, siguienteEstado(pedido.estado))
-                                }
-                                btnCancelarPedido.setOnClickListener {
-                                    viewModel.cambiarEstado(pedido.id, "cancelado")
+                            layoutEstadoSelect.visibility = View.VISIBLE
+                            btnActualizarEstado.visibility = View.VISIBLE
+                            val estadoActual = estadosKeys.indexOf(pedido.estado)
+                            spinnerEstado.setText(estados[estadoActual], false)
+
+                            btnActualizarEstado.setOnClickListener {
+                                val seleccion = spinnerEstado.text.toString()
+                                val index = estados.indexOf(seleccion)
+                                if (index >= 0 && estadosKeys[index] != pedido.estado) {
+                                    viewModel.cambiarEstado(pedido.id, estadosKeys[index])
+                                } else {
+                                    Toast.makeText(this@SeguimientoPedidoActivity, "Selecciona un estado diferente", Toast.LENGTH_SHORT).show()
                                 }
                             }
                         } else {
@@ -198,21 +221,5 @@ class SeguimientoPedidoActivity : AppCompatActivity() {
         return if (timestamp > 0) {
             SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(timestamp)
         } else "N/A"
-    }
-
-    private fun siguienteEstado(estado: String): String = when (estado) {
-        "pendiente" -> "diseno_aprobado"
-        "diseno_aprobado" -> "en_produccion"
-        "en_produccion" -> "listo_entrega"
-        "listo_entrega" -> "entregado"
-        else -> estado
-    }
-
-    private fun siguienteEstadoLabel(estado: String): String = when (estado) {
-        "pendiente" -> "Diseño Aprobado"
-        "diseno_aprobado" -> "En Producción"
-        "en_produccion" -> "Listo para Entrega"
-        "listo_entrega" -> "Entregado"
-        else -> ""
     }
 }

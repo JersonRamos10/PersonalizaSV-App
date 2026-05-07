@@ -372,32 +372,28 @@
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
-                    <LinearLayout
-                        android:id="@+id/layoutEstados"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layoutEstadoSelect"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:hint="Estado del pedido">
 
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btnSiguienteEstado"
+                        <AutoCompleteTextView
+                            android:id="@+id/spinnerEstado"
                             android:layout_width="match_parent"
-                            android:layout_height="52dp"
-                            android:text="Avanzar al siguiente estado"
-                            android:textSize="14sp"
-                            app:cornerRadius="12dp" />
+                            android:layout_height="wrap_content"
+                            android:inputType="none" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btnCancelarPedido"
-                            style="@style/Widget.Material3.Button.OutlinedButton"
-                            android:layout_width="match_parent"
-                            android:layout_height="52dp"
-                            android:layout_marginTop="8dp"
-                            android:text="Cancelar Pedido"
-                            android:textColor="@color/error"
-                            android:textSize="14sp"
-                            app:cornerRadius="12dp"
-                            app:strokeColor="@color/error" />
-                    </LinearLayout>
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnActualizarEstado"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:layout_marginTop="12dp"
+                        android:text="Actualizar Estado"
+                        android:textSize="14sp"
+                        app:cornerRadius="12dp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
