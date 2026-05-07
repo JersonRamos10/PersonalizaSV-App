@@ -112,6 +112,27 @@ class RegistrarPedidoActivity : AppCompatActivity() {
         editDireccionEntrega.doOnTextChanged { text -> viewModel.onFieldChange("direccion", text) }
         editNotas.doOnTextChanged { text -> viewModel.onFieldChange("notas", text) }
 
+        fun actualizarResumenUI() {
+            val form = viewModel.formState.value
+            txtResumenCliente.text = form.cliente?.nombreCompleto ?: "N/A"
+            txtResumenPago.text = form.metodoPago.ifBlank { "N/A" }
+            txtResumenFecha.text = if (form.fechaEntregaEstimada > 0) {
+                SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(form.fechaEntregaEstimada)
+            } else "N/A"
+            txtResumenDireccion.text = form.direccionEntrega.ifBlank { "N/A" }
+
+            layoutResumenProductos.removeAllViews()
+            form.items.forEach { item ->
+                val row = TextView(this@RegistrarPedidoActivity).apply {
+                    text = "• ${item.producto.nombre} x${item.cantidad} - $${"%.2f".format(item.subtotal)}"
+                    textSize = 14f
+                    setTextColor(getColor(R.color.text_primary))
+                    setPadding(0, 4, 0, 4)
+                }
+                layoutResumenProductos.addView(row)
+            }
+        }
+
         fun updateStep(step: Int) {
             currentStep = step
             steps.forEachIndexed { i, s -> s.visibility = if (i + 1 == step) View.VISIBLE else View.GONE }
@@ -119,6 +140,7 @@ class RegistrarPedidoActivity : AppCompatActivity() {
             progressIndicator.progress = step * 25
             btnAnterior.visibility = if (step > 1) View.VISIBLE else View.GONE
             btnSiguiente.text = if (step == 4) "Registrar Pedido" else "Siguiente"
+            if (step == 4) actualizarResumenUI()
         }
 
         btnAnterior.setOnClickListener {
@@ -196,23 +218,7 @@ class RegistrarPedidoActivity : AppCompatActivity() {
                         txtTotal.text = "$${"%.2f".format(viewModel.totalPedido)}"
 
                         if (currentStep == 4) {
-                            txtResumenCliente.text = form.cliente?.nombreCompleto ?: "N/A"
-                            txtResumenPago.text = form.metodoPago.ifBlank { "N/A" }
-                            txtResumenFecha.text = if (form.fechaEntregaEstimada > 0) {
-                                SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(form.fechaEntregaEstimada)
-                            } else "N/A"
-                            txtResumenDireccion.text = form.direccionEntrega.ifBlank { "N/A" }
-
-                            layoutResumenProductos.removeAllViews()
-                            form.items.forEach { item ->
-                                val row = TextView(this@RegistrarPedidoActivity).apply {
-                                    text = "• ${item.producto.nombre} x${item.cantidad} - $${"%.2f".format(item.subtotal)}"
-                                    textSize = 14f
-                                    setTextColor(getColor(R.color.text_primary))
-                                    setPadding(0, 4, 0, 4)
-                                }
-                                layoutResumenProductos.addView(row)
-                            }
+                            actualizarResumenUI()
                         }
                     }
                 }
