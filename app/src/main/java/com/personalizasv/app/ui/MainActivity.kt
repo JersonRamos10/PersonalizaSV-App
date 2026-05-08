@@ -2,16 +2,18 @@ package com.personalizasv.app.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import com.personalizasv.app.R
+import android.view.View
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
+import com.personalizasv.app.R
 import com.personalizasv.app.data.remote.FirebaseConfig
 
 class MainActivity : AppCompatActivity() {
@@ -25,13 +27,14 @@ class MainActivity : AppCompatActivity() {
         auth = FirebaseConfig.auth
 
         if (auth.currentUser != null) {
-           navigateToDashboard()
+            navigateToDashboard()
             return
         }
 
-        val editEmail = findViewById<EditText>(R.id.editEmail)
-        val editPassword = findViewById<EditText>(R.id.editPassword)
-        val btnIngresar = findViewById<Button>(R.id.editIngresar)
+        val editEmail = findViewById<TextInputEditText>(R.id.editEmail)
+        val editPassword = findViewById<TextInputEditText>(R.id.editPassword)
+        val btnIngresar = findViewById<MaterialButton>(R.id.btnIngresar)
+        val progressBar = findViewById<ProgressBar>(R.id.progressBar)
 
         btnIngresar.setOnClickListener {
             val email = editEmail.text.toString().trim()
@@ -40,7 +43,7 @@ class MainActivity : AppCompatActivity() {
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Complete todos los campos", Toast.LENGTH_SHORT).show()
             } else {
-                loginWithEmail(email, password)
+                loginWithEmail(email, password, btnIngresar, progressBar)
             }
         }
 
@@ -51,9 +54,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun loginWithEmail(email: String, password: String) {
+    private fun loginWithEmail(email: String, password: String, btn: MaterialButton, progress: ProgressBar) {
+        btn.isEnabled = false
+        btn.text = "Ingresando..."
+        progress.visibility = View.VISIBLE
+
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
+                btn.isEnabled = true
+                btn.text = "Ingresar"
+                progress.visibility = View.GONE
+
                 if (task.isSuccessful) {
                     Toast.makeText(this, "Bienvenido", Toast.LENGTH_SHORT).show()
                     navigateToDashboard()
