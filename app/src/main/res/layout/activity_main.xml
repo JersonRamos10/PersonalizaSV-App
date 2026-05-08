@@ -54,9 +54,22 @@
         android:layout_marginTop="12dp"
         android:ems="10"
         android:hint="Contraseña"
-        android:inputType="text"
+        android:inputType="textPassword"
         app:layout_constraintStart_toStartOf="@+id/editEmail"
         app:layout_constraintTop_toBottomOf="@+id/editEmail" />
+
+    <ImageButton
+        android:id="@+id/btnTogglePassword"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="4dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Mostrar contraseña"
+        android:src="@android:drawable/ic_menu_view"
+        app:layout_constraintBottom_toBottomOf="@+id/editPassword"
+        app:layout_constraintStart_toEndOf="@+id/editPassword"
+        app:layout_constraintTop_toTopOf="@+id/editPassword"
+        app:tint="@color/text_secondary" />
 
     <Button
         android:id="@+id/editIngresar"

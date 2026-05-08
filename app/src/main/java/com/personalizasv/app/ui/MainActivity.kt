@@ -2,8 +2,10 @@ package com.personalizasv.app.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import com.personalizasv.app.R
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -32,6 +34,20 @@ class MainActivity : AppCompatActivity() {
         val editEmail = findViewById<EditText>(R.id.editEmail)
         val editPassword = findViewById<EditText>(R.id.editPassword)
         val btnIngresar = findViewById<Button>(R.id.editIngresar)
+        val btnTogglePassword = findViewById<ImageButton>(R.id.btnTogglePassword)
+
+        var passwordVisible = false
+        btnTogglePassword.setOnClickListener {
+            passwordVisible = !passwordVisible
+            if (passwordVisible) {
+                editPassword.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                btnTogglePassword.setImageResource(android.R.drawable.ic_menu_close_clear_cancel)
+            } else {
+                editPassword.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                btnTogglePassword.setImageResource(android.R.drawable.ic_menu_view)
+            }
+            editPassword.setSelection(editPassword.text.length)
+        }
 
         btnIngresar.setOnClickListener {
             val email = editEmail.text.toString().trim()
